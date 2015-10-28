@@ -16,8 +16,8 @@ for file_name in os.listdir(main_word_dir):
         for line in file:
             [count, tertiary_word] = (line[:-1] if line.endswith('\n') else line).split(',')
             graph.node(tertiary_word)
-            len = float(count)/900
-            graph.edge(secondary_word, tertiary_word, len=str(5*(1-len)))
+            weight = float(count)/900
+            graph.edge(secondary_word, tertiary_word, len=str(5*(1-weight)))
 
 graph.render('graph')
 subprocess.check_output(['neato', '-Tpdf', 'graph', '-o', 'graph.pdf'])
