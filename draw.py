@@ -7,6 +7,7 @@ main_word = os.path.basename(main_word_dir)
 
 graph = gv.Digraph(format='svg')
 graph.node(main_word, center="true")
+weight = dict()
 
 for file_name in os.listdir(main_word_dir):
     secondary_word = file_name[:-4]
@@ -16,8 +17,16 @@ for file_name in os.listdir(main_word_dir):
         for line in file:
             [count, tertiary_word] = (line[:-1] if line.endswith('\n') else line).split(',')
             graph.node(tertiary_word)
-            weight = float(count)/900
-            graph.edge(secondary_word, tertiary_word, len=str(5*(1-weight)))
+            weight[(secondary_word, tertiary_word)] = float(count)/900
+            graph.edge(secondary_word, tertiary_word, len=str(5*(1-weight[(secondary_word, tertiary_word)])))
 
 graph.render('graph')
 subprocess.check_output(['neato', '-Tpdf', 'graph', '-o', 'graph.pdf'])
+
+with open('sentences', encoding='utf-8') as file:
+    for line in file:
+        for word1 in line.split():
+            for word2 in line.split():
+                w = weight.get((word1, word2))
+                if w:
+                    print('   ' + word1 + ' ' + word2 + ' ' + str(w))
