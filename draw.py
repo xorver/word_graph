@@ -1,3 +1,4 @@
+# -- coding: utf-8 --
 import os, sys
 import graphviz as gv
 import subprocess
