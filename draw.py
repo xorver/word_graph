@@ -1,9 +1,15 @@
 import os, sys
 import graphviz as gv
 import subprocess
+import plp
+
+def get_base_word(word):
+    return map(lambda id: plp.plp_bform(id).decode('UTF-8'), plp.plp_rec(word.encode('UTF-8')))
+
 
 main_word_dir = sys.argv[1]
 main_word = os.path.basename(main_word_dir)
+plp.plp_init()
 
 graph = gv.Digraph(format='svg')
 graph.node(main_word, center="true")
@@ -17,7 +23,7 @@ for file_name in os.listdir(main_word_dir):
         for line in file:
             [count, tertiary_word] = (line[:-1] if line.endswith('\n') else line).split(',')
             graph.node(tertiary_word)
-            weight[(secondary_word, tertiary_word)] = float(count)/900
+            weight[(get_base_word(secondary_word), get_base_word(tertiary_word))] = float(count)/900
             graph.edge(secondary_word, tertiary_word, len=str(5*(1-weight[(secondary_word, tertiary_word)])))
 
 graph.render('graph')
@@ -27,6 +33,6 @@ with open('sentences', encoding='utf-8') as file:
     for line in file:
         for word1 in line.split():
             for word2 in line.split():
-                w = weight.get((word1, word2))
+                w = weight.get((get_base_word(word1), get_base_word(word2)))
                 if w:
-                    print('   ' + word1 + ' ' + word2 + ' ' + str(w))
+                    print('   ' + get_base_word(word1) + ' ' + get_base_word(word2) + ' ' + str(w))
