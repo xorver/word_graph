@@ -39,8 +39,8 @@ with open('sentences', encoding='utf-8') as file:
         for word1 in line.split():
             for word2 in line.split():
                 w = weight.get((get_base_word(word1), get_base_word(word2)))
+                print(line)
                 if w and get_base_word(word1) != 'undefined' and get_base_word(word2) != 'undefined':
-                    print(get_base_word(word1))
-                    print(get_base_word(word2))
-                    print(w)
-                    print()
+                    print('   ' + get_base_word(word1))
+                    print('   ' + get_base_word(word2))
+                    print('   ' + str(w))
