@@ -23,8 +23,10 @@ for file_name in os.listdir(main_word_dir):
         for line in file:
             [count, tertiary_word] = (line[:-1] if line.endswith('\n') else line).split(',')
             graph.node(tertiary_word)
-            weight[(get_base_word(secondary_word), get_base_word(tertiary_word))] = float(count)/900
-            graph.edge(secondary_word, tertiary_word, len=str(5*(1-weight[(secondary_word, tertiary_word)])))
+            base_secondary_word = get_base_word(secondary_word)
+            base_tertiary_word = get_base_word(tertiary_word)
+            weight[(base_secondary_word, base_tertiary_word)] = float(count)/900
+            graph.edge(secondary_word, tertiary_word, len=str(5*(1-weight[(base_secondary_word, base_tertiary_word)])))
 
 graph.render('graph')
 subprocess.check_output(['neato', '-Tpdf', 'graph', '-o', 'graph.pdf'])
