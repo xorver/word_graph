@@ -8,7 +8,7 @@ def get_base_word(word):
         id = plp.plp_rec(word.encode('UTF-8'))
         return plp.plp_bform(id[0]).decode('UTF-8')
     except:
-        "undefined"
+        return "undefined"
 
 main_word_dir = sys.argv[1]
 main_word = os.path.basename(main_word_dir)
