@@ -37,11 +37,12 @@ for file_name in os.listdir(main_word_dir):
 
 with open('sentences', encoding='utf-8') as file:
     for line in file:
+        print()
         print(line)
         for word1 in line.split():
             for word2 in line.split():
                 w = weight.get((get_base_word(word1), get_base_word(word2)))
                 if w and get_base_word(word1) != 'undefined' and get_base_word(word2) != 'undefined':
-                    print(get_base_word(word1))
-                    print(get_base_word(word2))
-                    print(str(w))
+                    print('   ' + get_base_word(word1))
+                    print('   ' + get_base_word(word2))
+                    print('   ' + str(w))
