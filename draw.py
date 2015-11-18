@@ -4,7 +4,8 @@ import subprocess
 import plp
 
 def get_base_word(word):
-    return map(lambda id: plp.plp_bform(id).decode('UTF-8'), plp.plp_rec(word.encode('UTF-8')))
+    id = plp.plp_rec(word.encode('UTF-8'))
+    return plp.plp_bform(id).decode('UTF-8')
 
 
 main_word_dir = sys.argv[1]
@@ -28,8 +29,8 @@ for file_name in os.listdir(main_word_dir):
             weight[(base_secondary_word, base_tertiary_word)] = float(count)/900
             graph.edge(secondary_word, tertiary_word, len=str(5*(1-weight[(base_secondary_word, base_tertiary_word)])))
 
-graph.render('graph')
-subprocess.check_output(['neato', '-Tpdf', 'graph', '-o', 'graph.pdf'])
+# graph.render('graph')
+# subprocess.check_output(['neato', '-Tpdf', 'graph', '-o', 'graph.pdf'])
 
 with open('sentences', encoding='utf-8') as file:
     for line in file:
