@@ -7,7 +7,7 @@ import plp
 def get_base_word(word):
     try:
         id = plp.plp_rec(word.encode('UTF-8'))
-        return plp.plp_bform(id[0])
+        return plp.plp_bform(id[0]).decode('UTF-8')
     except:
         return "undefined"
 
