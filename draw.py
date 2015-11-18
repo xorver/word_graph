@@ -36,10 +36,10 @@ for file_name in os.listdir(main_word_dir):
 
 with open('sentences', encoding='utf-8') as file:
     for line in file:
+        print(line.encode('utf-8'))
         for word1 in line.split():
             for word2 in line.split():
                 w = weight.get((get_base_word(word1), get_base_word(word2)))
-                print(line.encode('utf-8'))
                 if w and get_base_word(word1) != 'undefined' and get_base_word(word2) != 'undefined':
                     print(get_base_word(word1).encode('utf-8'))
                     print(get_base_word(word2).encode('utf-8'))
