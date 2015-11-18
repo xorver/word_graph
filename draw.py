@@ -40,4 +40,7 @@ with open('sentences', encoding='utf-8') as file:
             for word2 in line.split():
                 w = weight.get((get_base_word(word1), get_base_word(word2)))
                 if w:
-                    print('   ' + get_base_word(word1) + ' ' + get_base_word(word2) + ' ' + str(w))
+                    print(get_base_word(word1))
+                    print(get_base_word(word2))
+                    print(w)
+                    print()
