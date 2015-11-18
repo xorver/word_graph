@@ -6,7 +6,7 @@ import plp
 def get_base_word(word):
     try:
         id = plp.plp_rec(word.encode('UTF-8'))
-        return plp.plp_bform(id[0]).decode('UTF-8')
+        return plp.plp_bform(id[0])
     except:
         return "undefined"
 
@@ -39,7 +39,7 @@ with open('sentences', encoding='utf-8') as file:
         for word1 in line.split():
             for word2 in line.split():
                 w = weight.get((get_base_word(word1), get_base_word(word2)))
-                if w:
+                if w and get_base_word(word1) != 'undefined' and get_base_word(word2) != 'undefined':
                     print(get_base_word(word1))
                     print(get_base_word(word2))
                     print(w)
