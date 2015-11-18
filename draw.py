@@ -5,7 +5,7 @@ import plp
 
 def get_base_word(word):
     id = plp.plp_rec(word.encode('UTF-8'))
-    return plp.plp_bform(id).decode('UTF-8')
+    return plp.plp_bform(id[0]).decode('UTF-8')
 
 
 main_word_dir = sys.argv[1]
